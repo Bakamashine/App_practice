@@ -1,0 +1,88 @@
+:root {
+  --default-background-color: rgb(230, 233, 230);
+  --hover-background-color: rgb(207, 229, 215);
+  --transition-fast: 0.2s ease;
+  --transition-medium: 0.35s ease;
+  --shadow-soft: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+body {
+  background-image: url("../assets/background.jpg");
+  background-size: cover;
+  background-position: center;
+  margin: 0;
+  font-family: system-ui, sans-serif;
+}
+
+.menu,
+.default-background,
+.main__wrapper {
+  background-color: var(--default-background-color);
+  border-radius: 10px;
+  box-shadow: var(--shadow-soft);
+}
+
+.menu {
+  padding: 20px;
+}
+
+.default-background {
+  padding: 10px;
+}
+
+.main {
+  display: flex;
+  /* gap: 16px; */
+  justify-content: space-between;
+  padding: 10px;
+}
+
+.leftmenu {
+  width: 20%;
+  min-width: 220px;
+  transition: width var(--transition-medium);
+}
+
+.leftmenu:hover {
+  width: 25%;
+}
+
+.leftmenu__button,
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  border-radius: 6px;
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    background-color var(--transition-fast),
+    transform var(--transition-fast),
+    box-shadow var(--transition-fast);
+}
+
+.leftmenu__button:hover,
+.button:hover {
+  background-color: var(--hover-background-color);
+  transform: translateY(-1px);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.12);
+}
+
+.leftmenu__button:active,
+.button:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.leftmenu__asset {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+  flex-shrink: 0;
+}
+
+.clock {
+
+}

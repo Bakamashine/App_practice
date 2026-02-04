@@ -15,6 +15,9 @@ const createWindow = () => {
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
     },
+    
+    /// TODO: Don't working
+    icon: "favicon.png"
   });
 
   // and load the index.html of the app.
@@ -28,6 +31,8 @@ const createWindow = () => {
 
   // Open the DevTools.
   mainWindow.webContents.openDevTools();
+
+  // mainWindow.setIcon(path.join(__dirname, 'assets/favicon.png'));
 };
 
 // This method will be called when Electron has finished
@@ -43,6 +48,8 @@ app.on('window-all-closed', () => {
     app.quit();
   }
 });
+
+
 
 app.on('activate', () => {
   // On OS X it's common to re-create a window in the app when the
