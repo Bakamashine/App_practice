@@ -7,6 +7,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "../css/main.css";
 import RightMenu from "../components/includes/rightmenu";
 import NewsPage from "./news";
+import Register from "./auth/register";
+import Login from "./auth/login";
 
 export default function App() {
   return (
@@ -28,6 +30,8 @@ createRoot(document.getElementById("root")!).render(
       <Route element={<App />}>
         <Route path="/" element={<MainPage />} />
         <Route path="/news" element={<NewsPage />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/login" element={<Login />} />
       </Route>
     </Routes>
   </BrowserRouter>,
