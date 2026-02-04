@@ -47,8 +47,7 @@ body {
   width: 25%;
 }
 
-.leftmenu__button,
-.button {
+.leftmenu__button {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -63,8 +62,24 @@ body {
     box-shadow var(--transition-fast);
 }
 
-.leftmenu__button:hover,
-.button:hover {
+.leftmenu__button__link {
+  display: block;
+  color: black;
+  text-decoration: none;
+}
+
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  border-radius: 6px;
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.leftmenu__button:hover {
   background-color: var(--hover-background-color);
   transform: translateY(-1px);
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.12);
@@ -84,5 +99,4 @@ body {
 }
 
 .clock {
-
 }

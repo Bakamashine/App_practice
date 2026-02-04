@@ -5,12 +5,13 @@ export default function LeftMenu() {
     <div className="leftmenu menu">
       <div className="leftmenu__button">
         <img src="assets/svg/home.svg" className="leftmenu__asset" />
-        <Link className="" to={"/"}>
+        <Link className="leftmenu__button__link" to={"/"}>
           Главная
         </Link>
       </div>
       <div className="leftmenu__button">
-        <Link className="" to={"/news"}>
+        <img src="assets/svg/news.png" className="leftmenu__asset" />
+        <Link className="leftmenu__button__link" to={"/news"}>
           Новости
         </Link>
       </div>
