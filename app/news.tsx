@@ -2,21 +2,33 @@ import axios from "axios";
 import $unAuthApi from "../config/unAuthApi";
 import NewsApi, { NewsItem } from "../api/news";
 import { useEffect, useState } from "react";
+import Loader from "../components/loader";
 
 export default function NewsPage() {
   const [news, setNews] = useState<NewsItem[]>([]);
+  const [load, setLoad] = useState(true);
 
   const getData = async () => {
-    const response = await NewsApi.getData();
+    try {
+      const response = await NewsApi.getData();
 
-    if (response) {
-      setNews(NewsApi.parseData(response));
+      if (response) {
+        setNews(NewsApi.parseData(response));
+      }
+    } catch (e) {
+      console.error(e);
+    } finally {
+      setLoad(false);
     }
   };
 
   useEffect(() => {
     getData();
   }, []);
+
+  if (load) {
+    return <Loader />;
+  }
 
   return (
     <div>

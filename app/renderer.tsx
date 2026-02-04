@@ -1,38 +1,72 @@
-import React from "react";
+import React, { createContext, useContext, useState } from "react";
 import { createRoot } from "react-dom/client";
-import { BrowserRouter, Outlet, Route, Routes } from "react-router-dom";
+import {
+  BrowserRouter,
+  Navigate,
+  Outlet,
+  Route,
+  Routes,
+  useLocation,
+} from "react-router-dom";
 import MainPage from "./main";
-import LeftMenu from "../components/includes/leftmenu";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../css/main.css";
-import RightMenu from "../components/includes/rightmenu";
 import NewsPage from "./news";
 import Register from "./auth/register";
 import Login from "./auth/login";
+import Layout from "./layout";
+
+type AuthContextType = {
+  isAuthenticated: boolean;
+  setAuth: (auth: boolean) => void;
+};
+
+export const AuthContext = createContext<AuthContextType>({
+  isAuthenticated: false,
+  setAuth: () => {},
+});
+
+const PrivateRoute = () => {
+  const { isAuthenticated } = useContext(AuthContext);
+
+  const location = useLocation();
+  if (isAuthenticated) {
+    return <Outlet />;
+  } else {
+    return <Navigate to="/login" state={{ from: location }} replace />;
+  }
+};
+
+const PublicRoute = () => {
+  const { isAuthenticated } = useContext(AuthContext);
+
+  if (!isAuthenticated) {
+    return <Outlet />;
+  } else {
+    return <Navigate to={"/"} replace />;
+  }
+};
 
 export default function App() {
+  const [isAuthenticated, setAuth] = useState<boolean>(false);
   return (
-    <React.StrictMode>
-      <div className="main">
-        <LeftMenu />
-        <main className="main__wrapper default-background">
-          <Outlet />
-        </main>
-        <RightMenu />
-      </div>
-    </React.StrictMode>
+    <BrowserRouter>
+      <AuthContext.Provider value={{ isAuthenticated, setAuth }}>
+        <Routes>
+          <Route element={<Layout />}>
+            <Route path="/" element={<MainPage />} />
+            <Route element={<PublicRoute />}>
+              <Route path="/register" element={<Register />} />
+              <Route path="/login" element={<Login />} />
+            </Route>
+            <Route element={<PrivateRoute />}>
+              <Route path="/news" element={<NewsPage />} />
+            </Route>
+          </Route>
+        </Routes>
+      </AuthContext.Provider>
+    </BrowserRouter>
   );
 }
 
-createRoot(document.getElementById("root")!).render(
-  <BrowserRouter>
-    <Routes>
-      <Route element={<App />}>
-        <Route path="/" element={<MainPage />} />
-        <Route path="/news" element={<NewsPage />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/login" element={<Login />} />
-      </Route>
-    </Routes>
-  </BrowserRouter>,
-);
+createRoot(document.getElementById("root")!).render(<App />);

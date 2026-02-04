@@ -56,13 +56,13 @@ body {
 }
 
 .leftmenu {
+  user-select: none;
   width: 20%;
   min-width: 220px;
   transition: width var(--transition-medium);
 }
 
 .leftmenu__wrapper {
-
 }
 
 .leftmenu:hover {
@@ -122,6 +122,20 @@ body {
 }
 
 .clock {
+  user-select: none;
+}
+
+.clock__item {
+}
+
+.loader {
+  position: absolute;
+  top: 50%;
+  left: 50%
+}
+
+.loader__wrapper {
+  padding: 20px;
 }
 
 .form-component {
