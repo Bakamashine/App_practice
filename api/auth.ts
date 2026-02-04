@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import $unAuthApi from "../config/unAuthApi";
 import { AuthContext } from "../app/renderer";
+import Api from "./api"
 
 export interface LoginResponse {
   refresh: string;
@@ -12,16 +13,17 @@ export interface LoginError {
 }
 
 export interface RegisterError {
-    email?: string[],
-    password?: string[],
-    username?: string[],
-//   [key: string]: {
-//     value: string;
-//   }[];
+  email?: string[];
+  password?: string[];
+  username?: string[];
 }
-class Auth {
+class Auth extends Api {
   static accessKey = "access";
   static refreshKey = "refresh";
+
+  public getObject() {
+    return Auth;
+  }
 
   protected SetToken({ access, refresh }: LoginResponse) {
     console.log("Access token: ", access);
@@ -29,10 +31,7 @@ class Auth {
     localStorage.setItem(Auth.accessKey, access);
     localStorage.setItem(Auth.refreshKey, refresh);
   }
-  
-  protected CheckStatus(status: number): boolean {
-    return status < 400
-  }
+
 
   async Login(username: string, password: string): Promise<void | LoginError> {
     const response = await $unAuthApi.post("/token", {

@@ -18,6 +18,10 @@ export default function LeftMenu() {
           <img src="assets/svg/news.png" className="leftmenu__asset" />
           <div className="leftmenu__button__link">Новости</div>
         </div>
+        <div className="leftmenu__button" onClick={() => navigate("/feedback")}>
+          <img src="assets/svg/feedback.png" className="leftmenu__asset" />
+          <div className="leftmenu__button__link">Оставить заявку</div>
+        </div>
         {!isAuthenticated ? (
           <>
             <div

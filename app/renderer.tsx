@@ -15,6 +15,7 @@ import NewsPage from "./news";
 import Register from "./auth/register";
 import Login from "./auth/login";
 import Layout from "./layout";
+import SendFeedback from "./feedback";
 
 type AuthContextType = {
   isAuthenticated: boolean;
@@ -61,6 +62,7 @@ export default function App() {
             </Route>
             <Route element={<PrivateRoute />}>
               <Route path="/news" element={<NewsPage />} />
+              <Route path="/feedback" element={<SendFeedback />} />
             </Route>
           </Route>
         </Routes>
