@@ -12,12 +12,15 @@ import ShowError from "../../components/showError";
 import { AuthContext } from "../renderer";
 import { useLocation, useNavigate } from "react-router-dom";
 import { debug } from "../../constants/debug";
+import CenterModal from "../../components/centerModalWindow";
+import user from "../../api/user";
 
 const Login = () => {
   const { setAuth } = useContext(AuthContext);
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
+  // const [show, setShow] = useState(false)
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/"
@@ -28,12 +31,14 @@ const Login = () => {
       setError(response.detail);
     } else {
       setAuth(true);
+      // setShow(true);
       navigate(from, {replace: true})
     }
   };
 
   return (
     <div className="form-component">
+      {/* <CenterModal callback={() => setShow(false)} show={show} centerText={`Вы успешно авторизировались ${user.getName}`} /> */}
       <h1 className="text-center">Авторизация</h1>
       <Form onSubmit={submit}>
         <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
@@ -68,6 +73,7 @@ const Login = () => {
           const response = await auth.Login("cutteban", "moredock1");
           if (!response) {
             setAuth(true);
+            // setShow(true)
             navigate(from, {replace: true})
           }
         }}>Login (debug)</Button>

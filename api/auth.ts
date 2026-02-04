@@ -1,7 +1,8 @@
 import { useContext } from "react";
 import $unAuthApi from "../config/unAuthApi";
 import { AuthContext } from "../app/renderer";
-import Api from "./api"
+import Api from "./api";
+import $AuthApi from "../config/AuthApi";
 
 export interface LoginResponse {
   refresh: string;
@@ -20,6 +21,8 @@ export interface RegisterError {
 class Auth extends Api {
   static accessKey = "access";
   static refreshKey = "refresh";
+  static nameKey = "name";
+  static emailKey = "email";
 
   public getObject() {
     return Auth;
@@ -32,6 +35,15 @@ class Auth extends Api {
     localStorage.setItem(Auth.refreshKey, refresh);
   }
 
+  protected async GetNameAndEmail() {
+    const response = await $AuthApi.get("/getuser");
+    let name = response.data.username;
+    let email = response.data.email;
+    console.log("Username: ", name);
+    console.log("Email: ", email);
+    localStorage.setItem(Auth.nameKey, response.data.username);
+    localStorage.setItem(Auth.emailKey, response.data.email);
+  }
 
   async Login(username: string, password: string): Promise<void | LoginError> {
     const response = await $unAuthApi.post("/token", {
@@ -45,6 +57,7 @@ class Auth extends Api {
         access: response.data.access,
         refresh: response.data.refresh,
       });
+      this.GetNameAndEmail();
     } else {
       return response.data;
     }
