@@ -2,7 +2,7 @@ import { SubmitEvent, SubmitEventHandler, useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import auth from "../../api/auth";
-import Error from "../../components/viewError";
+import ShowError from "../../components/showError";
 
 const Login = () => {
   const [name, setName] = useState("");
@@ -12,7 +12,7 @@ const Login = () => {
     e.preventDefault();
     const response = await auth.Login(name, password);
     if (response) {
-      setError(response);
+      setError(response.detail);
     }
   };
 
@@ -31,7 +31,7 @@ const Login = () => {
             type="text"
             placeholder="Имя..."
           />
-          <Error message={error} />
+          <ShowError message={error} />
         </Form.Group>
         <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
           <Form.Label>Ваш пароль</Form.Label>

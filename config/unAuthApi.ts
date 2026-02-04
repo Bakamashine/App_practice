@@ -4,7 +4,7 @@ import { backendUrl, backendUrlApi } from "../constants/url";
 const $unAuthApi = axios.create({
   baseURL: backendUrlApi,
   validateStatus: function (status) {
-    return status < 402 && status !== 400;
+    return status < 402 ;
   },
 });
 

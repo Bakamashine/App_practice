@@ -1,4 +1,4 @@
-export default function Error({ message }: { message?: string }) {
+export default function ShowError({ message }: { message?: string }) {
   return (
     <>
       {message ? (
