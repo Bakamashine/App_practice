@@ -1,5 +1,3 @@
-import axios from "axios";
-import $unAuthApi from "../config/unAuthApi";
 import NewsApi, { NewsItem } from "../api/news";
 import { useEffect, useState } from "react";
 import Loader from "../components/loader";

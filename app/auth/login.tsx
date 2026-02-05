@@ -1,19 +1,15 @@
 import {
   SubmitEvent,
-  SubmitEventHandler,
   useContext,
-  useEffect,
   useState,
 } from "react";
 import { Button } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import auth from "../../api/auth";
 import ShowError from "../../components/showError";
-import { AuthContext } from "../renderer";
+import { AuthContext } from "../root";
 import { useLocation, useNavigate } from "react-router-dom";
 import { debug } from "../../constants/debug";
-import CenterModal from "../../components/centerModalWindow";
-import user from "../../api/user";
 
 const Login = () => {
   const { setAuth } = useContext(AuthContext);

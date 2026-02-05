@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import $unAuthApi from "../config/unAuthApi";
-import { AuthContext } from "../app/renderer";
+import { AuthContext } from "../app/root";
 import Api from "./api";
 import $AuthApi from "../config/AuthApi";
 

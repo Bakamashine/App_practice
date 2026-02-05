@@ -1,6 +1,6 @@
 import { useContext } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { AuthContext } from "../../app/renderer";
+import {  useNavigate } from "react-router-dom";
+import { AuthContext } from "../../app/root";
 import auth from "../../api/auth";
 
 export default function LeftMenu() {

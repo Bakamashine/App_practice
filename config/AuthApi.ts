@@ -1,5 +1,5 @@
 import axios from "axios";
-import { backendUrl, backendUrlApi } from "../constants/url";
+import {  backendUrlApi } from "../constants/url";
 import auth from "../api/auth";
 
 const $AuthApi = axios.create({

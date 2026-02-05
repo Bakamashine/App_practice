@@ -1,5 +1,4 @@
 import React, { createContext, useContext, useState } from "react";
-import { createRoot } from "react-dom/client";
 import {
   BrowserRouter,
   Navigate,
@@ -15,7 +14,6 @@ import NewsPage from "./news";
 import Register from "./auth/register";
 import Login from "./auth/login";
 import Layout from "./layout";
-import { net } from "electron";
 import SendFeedback from "./feedback";
 
 type AuthContextType = {
@@ -72,4 +70,3 @@ export default function App() {
   );
 }
 
-createRoot(document.getElementById("root")!).render(<App />);

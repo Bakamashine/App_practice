@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import user from "../../api/user";
 import Clock from "../clock";
-import { AuthContext } from "../../app/renderer";
+import { AuthContext } from "../../app/root";
 import { backendUrl } from "../../constants/url";
 
 export default function RightMenu() {

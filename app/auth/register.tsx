@@ -2,7 +2,6 @@ import { SubmitEvent, useState } from "react";
 import { Button } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import auth, { RegisterError } from "../../api/auth";
-import ShowError from "../../components/showError";
 import ShowErrors from "../../components/showErrors";
 
 const Register = () => {
