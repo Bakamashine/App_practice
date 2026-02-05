@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState } from "react";
 import {
   BrowserRouter,
+  HashRouter,
   Navigate,
   Outlet,
   Route,
@@ -50,7 +51,7 @@ const PublicRoute = () => {
 export default function App() {
   const [isAuthenticated, setAuth] = useState<boolean>(false);
   return (
-    <BrowserRouter>
+    <HashRouter>
       <AuthContext.Provider value={{ isAuthenticated, setAuth }}>
         <Routes>
           <Route element={<Layout />}>
@@ -66,7 +67,7 @@ export default function App() {
           </Route>
         </Routes>
       </AuthContext.Provider>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 

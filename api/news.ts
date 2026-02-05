@@ -23,7 +23,7 @@ class NewsApi {
         console.log("Image: ", images[i]);
         const old_src = images[i].src;
         images[i].src =
-          `${backendUrl}/${old_src.replace(frontendUrl + "/", "")}`;
+          `${backendUrl}/${old_src.replace(frontendUrl + "/", "").replace("file://", "")}`;
       }
       item.text = doc.documentElement.innerHTML;
     });

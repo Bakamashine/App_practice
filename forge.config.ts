@@ -10,6 +10,10 @@ import { FuseV1Options, FuseVersion } from '@electron/fuses';
 const config: ForgeConfig = {
   packagerConfig: {
     asar: true,
+    extraResource: [
+      "./assets",
+      "./assets/svg"
+    ]
   },
   rebuildConfig: {},
   makers: [
