@@ -16,12 +16,12 @@ class NewsApi {
 
   parseData(data: NewsItem[]): NewsItem[] {
     data.forEach((item) => {
-      let parser = new DOMParser();
-      let doc = parser.parseFromString(item.text, "text/html");
-      let images = doc.getElementsByTagName("img");
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(item.text, "text/html");
+      const images = doc.getElementsByTagName("img");
       for (let i = 0; i < images.length; i++) {
         console.log("Image: ", images[i]);
-        let old_src = images[i].src;
+        const old_src = images[i].src;
         images[i].src =
           `${backendUrl}/${old_src.replace(frontendUrl + "/", "")}`;
       }

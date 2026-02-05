@@ -24,9 +24,31 @@ class Auth extends Api {
   static nameKey = "name";
   static emailKey = "email";
 
+  userTable = "users";
+
+  // accessTokenRow = "accessToken";
+  // refreshTokenRow = "refreshToken";
+  // emailRow = "email";
+  // nameRow = "name";
+
   public getObject() {
     return Auth;
   }
+
+  // protected SaveIntoDB(
+  //   accessToken: string,
+  //   refreshToken: string,
+  //   email: string,
+  //   name: string,
+  // ) {
+  //   const stmt = this.db.prepare(`insert into ${this.userTable} (
+  //     ${this.accessTokenRow}, ${this.refreshTokenRow}, ${this.emailRow}, ${this.nameRow})
+  //     values (?, ?, ?, ?)
+  //     ) `);
+
+  //   stmt.run(accessToken, refreshToken, email, name);
+  //   console.log("Save into db successed");
+  // }
 
   protected SetToken({ access, refresh }: LoginResponse) {
     console.log("Access token: ", access);
@@ -37,8 +59,8 @@ class Auth extends Api {
 
   protected async GetNameAndEmail() {
     const response = await $AuthApi.get("/getuser");
-    let name = response.data.username;
-    let email = response.data.email;
+    const name = response.data.username as string;
+    const email = response.data.email as string;
     console.log("Username: ", name);
     console.log("Email: ", email);
     localStorage.setItem(Auth.nameKey, response.data.username);
@@ -50,14 +72,15 @@ class Auth extends Api {
       username,
       password,
     });
-    console.log("Login result response: ", response);
-    console.log("Login result: ", response.data);
+    this.LogResponse("Login result", response);
     if (this.CheckStatus(response.status)) {
       this.SetToken({
         access: response.data.access,
         refresh: response.data.refresh,
       });
-      this.GetNameAndEmail();
+      await this.GetNameAndEmail();
+      // if (name && email)
+      //   this.SaveIntoDB(response.data.access, response.data.refresh, email, name);
     } else {
       return response.data;
     }
@@ -73,8 +96,7 @@ class Auth extends Api {
       email,
       password,
     });
-    console.log("Register result response: ", response);
-    console.log("Register result: ", response.data);
+    this.LogResponse("Register result", response);
 
     if (this.CheckStatus(response.status)) {
       this.Login(username, password);
