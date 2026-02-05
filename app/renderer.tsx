@@ -15,6 +15,7 @@ import NewsPage from "./news";
 import Register from "./auth/register";
 import Login from "./auth/login";
 import Layout from "./layout";
+import { net } from "electron";
 import SendFeedback from "./feedback";
 
 type AuthContextType = {

@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Нет интернета</title>
+
+  <style>
+    :root {
+      --default-background-color: rgb(230, 233, 230);
+      --hover-background-color: rgb(207, 229, 215);
+      --transition-fast: 0.2s ease;
+      --transition-medium: 0.35s ease;
+      --shadow-soft: 0 4px 10px rgba(0, 0, 0, 0.08);
+    }
+
+    body {
+      background-image: url("assets/background.jpg");
+      background-size: cover;
+      background-position: center;
+      margin: 0;
+      font-family: system-ui, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .flexCenter {
+      display: flex;
+      justify-content: center;
+    }
+
+    .menu {
+      height: 100%;
+    }
+
+    .menu__wrapper {
+      background-color: var(--default-background-color);
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .default-background {
+      background-color: var(--default-background-color);
+      border-radius: 10px;
+      box-shadow: var(--shadow-soft);
+      padding: 10px;
+    }
+
+    .main__wrapper {
+      background-color: var(--default-background-color);
+      border-radius: 10px;
+      box-shadow: var(--shadow-soft);
+      padding: 30px;
+      max-width: 520px;
+      text-align: center;
+    }
+
+    .main {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px;
+    }
+
+    .leftmenu {
+      user-select: none;
+      width: 20%;
+      min-width: 220px;
+      transition: width var(--transition-medium);
+    }
+
+    .leftmenu:hover {
+      width: 25%;
+    }
+
+    .leftmenu__button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 40px;
+      border-radius: 6px;
+      color: black;
+      text-decoration: none;
+      cursor: pointer;
+      transition:
+        background-color var(--transition-fast),
+        transform var(--transition-fast),
+        box-shadow var(--transition-fast);
+    }
+
+    .leftmenu__button__link {
+      display: block;
+      color: black;
+      user-select: none;
+      text-decoration: none;
+    }
+
+    .button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 40px;
+      border-radius: 6px;
+      color: black;
+      text-decoration: none;
+      cursor: pointer;
+      background-color: var(--default-background-color);
+      transition:
+        background-color var(--transition-fast),
+        transform var(--transition-fast),
+        box-shadow var(--transition-fast);
+    }
+
+    .leftmenu__button:hover,
+    .button:hover {
+      background-color: var(--hover-background-color);
+      transform: translateY(-1px);
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.12);
+    }
+
+    .leftmenu__button:active,
+    .button:active {
+      transform: translateY(0);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .leftmenu__asset {
+      width: 20px;
+      height: 20px;
+      margin-right: 10px;
+      flex-shrink: 0;
+    }
+
+    .clock {
+      user-select: none;
+    }
+
+    .loader {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .loader__wrapper {
+      padding: 20px;
+    }
+
+    .form-component {
+      margin: 20px;
+    }
+
+    .title {
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+
+    .description {
+      margin-bottom: 20px;
+      line-height: 1.5;
+    }
+
+    .actions {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="main__wrapper">
+    <div class="title">Нет интернета</div>
+    <div class="description">
+      Проверьте подключение к интернету. Убедитесь, что сетевой кабель подключён и адаптер активен.
+    </div>
+  </div>
+</body>
+</html>
