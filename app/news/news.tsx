@@ -1,6 +1,7 @@
-import NewsApi, { NewsItem } from "../api/news";
+import NewsApi, { NewsItem } from "../../api/news";
 import { useEffect, useState } from "react";
-import Loader from "../components/loader";
+import Loader from "../../components/loader";
+import { Link } from "react-router-dom";
 
 export default function NewsPage() {
   const [news, setNews] = useState<NewsItem[]>([]);
@@ -11,7 +12,7 @@ export default function NewsPage() {
       const response = await NewsApi.getData();
 
       if (response) {
-        setNews(NewsApi.parseData(response));
+        setNews(response);
       }
     } catch (e) {
       console.error(e);
@@ -41,8 +42,8 @@ export default function NewsPage() {
               padding: "10px",
             }}
           >
-            <h2>{item.title}</h2>
-            <div dangerouslySetInnerHTML={{ __html: item.text }}></div>
+            <Link to={`/news/${item.id}`}><h2>{item.title}</h2></Link>
+            {/* <div dangerouslySetInnerHTML={{ __html: item.text }}></div> */}
             <small>Дата: {new Date(item.date).toLocaleDateString()}</small>
           </div>
         ))}

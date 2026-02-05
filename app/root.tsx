@@ -11,11 +11,12 @@ import {
 import MainPage from "./main";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../css/main.css";
-import NewsPage from "./news";
+import NewsPage from "./news/news";
 import Register from "./auth/register";
 import Login from "./auth/login";
 import Layout from "./layout";
 import SendFeedback from "./feedback";
+import OneNews from "./news/one";
 
 type AuthContextType = {
   isAuthenticated: boolean;
@@ -62,6 +63,7 @@ export default function App() {
             </Route>
             <Route element={<PrivateRoute />}>
               <Route path="/news" element={<NewsPage />} />
+              <Route path="/news/:id" element={<OneNews />} />
               <Route path="/feedback" element={<SendFeedback />} />
             </Route>
           </Route>

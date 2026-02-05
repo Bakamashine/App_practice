@@ -4,7 +4,7 @@ import { backendUrl, frontendUrl } from "../constants/url";
 export interface NewsItem {
   id: number;
   title: string;
-  text: string;
+  text?: string;
   date: string;
 }
 class NewsApi {
@@ -13,6 +13,12 @@ class NewsApi {
     console.log("News: ", response.data);
     return response.data;
   };
+
+  async getById(id: number|string): Promise<NewsItem> {
+    const response = await $unAuthApi.get(`/news/${id}`);
+    console.log("One news: ", response.data);
+    return response.data;
+  }
 
   parseData(data: NewsItem[]): NewsItem[] {
     data.forEach((item) => {
