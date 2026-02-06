@@ -10,7 +10,7 @@ export default function RightMenu() {
     <div className="rightmenu menu">
       <div className="menu__wrapper">
         <Clock />
-        <a href={backendUrl}>Наш сайт</a>
+        <a className="link" href={backendUrl}>Наш сайт</a>
       </div>
       {isAuthenticated && (
         <div className="menu__wrapper mt-3">

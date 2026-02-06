@@ -57,6 +57,10 @@ class Auth extends Api {
     localStorage.setItem(Auth.refreshKey, refresh);
   }
 
+  GetAccessToken(): string|null {
+    return localStorage.getItem(Auth.accessKey)
+  }
+
   protected async GetNameAndEmail() {
     const response = await $AuthApi.get("/getuser");
     const name = response.data.username as string;

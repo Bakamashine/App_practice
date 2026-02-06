@@ -4,7 +4,7 @@ import { backendUrl, frontendUrl } from "../constants/url";
 export interface NewsItem {
   id: number;
   title: string;
-  text?: string;
+  text?: string|TrustedHTML;
   date: string;
 }
 class NewsApi {

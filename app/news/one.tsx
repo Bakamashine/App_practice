@@ -10,9 +10,11 @@ export default function OneNews() {
 
   const fetchData = async () => {
     try {
-      const response = await news.getById(params.id);
-      const parsedData = news.parseData([response]);
-      setNews(parsedData[0]);
+      if (params.id) {
+        const response = await news.getById(params.id);
+        const parsedData = news.parseData([response]);
+        setNews(parsedData[0]);
+      } else throw new Error(`Params.id is undefined ${params.id}`);
     } catch (e) {
       console.error(e);
     } finally {
@@ -28,17 +30,21 @@ export default function OneNews() {
   }
   return (
     <div>
-      <div
-        style={{
-          border: "1px solid black",
-          marginBottom: "10px",
-          padding: "10px",
-        }}
-      >
-        <h2>{onenews.title}</h2>
-        <div dangerouslySetInnerHTML={{ __html: onenews.text }}></div>
-        <small>Дата: {new Date(onenews.date).toLocaleDateString()}</small>
-      </div>
+      {onenews  ? (
+        <div
+          style={{
+            border: "1px solid black",
+            marginBottom: "10px",
+            padding: "10px",
+          }}
+        >
+          <h2>{onenews?.title}</h2>
+          <div dangerouslySetInnerHTML={{ __html: onenews?.text }}></div>
+          <small>Дата: {new Date(onenews?.date).toLocaleDateString()}</small>
+        </div>
+      ) : (
+        <p>Новость не найдена</p>
+      )}
     </div>
   );
 }

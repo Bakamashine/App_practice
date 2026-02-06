@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 import {
   BrowserRouter,
   HashRouter,
@@ -17,6 +17,8 @@ import Login from "./auth/login";
 import Layout from "./layout";
 import SendFeedback from "./feedback";
 import OneNews from "./news/one";
+import user from "../api/user";
+import auth from "../api/auth";
 
 type AuthContextType = {
   isAuthenticated: boolean;
@@ -51,6 +53,13 @@ const PublicRoute = () => {
 
 export default function App() {
   const [isAuthenticated, setAuth] = useState<boolean>(false);
+
+  useEffect(() => {
+    let token = auth.GetAccessToken()
+    if (token) {
+      setAuth(true)
+    }
+  }, [])
   return (
     <HashRouter>
       <AuthContext.Provider value={{ isAuthenticated, setAuth }}>

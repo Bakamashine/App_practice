@@ -141,3 +141,8 @@ body {
 .form-component {
   margin: 20px;
 }
+
+.link {
+  cursor: pointer;
+  user-select: none;
+}
