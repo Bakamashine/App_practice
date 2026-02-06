@@ -22,6 +22,8 @@ import auth from "../api/auth";
 import AuthLayout from "./auth/authLayout";
 import NewsLayout from "./news/newsLayout";
 import NewsYear from "./news/year";
+import AboutUs from "./about_us/about_us";
+import AboutUsLayout from "./about_us/aboutUsLayout";
 
 type AuthContextType = {
   isAuthenticated: boolean;
@@ -44,7 +46,7 @@ const PrivateRoute = () => {
   }
 };
 
-const PublicRoute = () => {
+const UnAuthRoute = () => {
   const { isAuthenticated } = useContext(AuthContext);
 
   if (!isAuthenticated) {
@@ -67,18 +69,28 @@ export default function App() {
     <HashRouter>
       <AuthContext.Provider value={{ isAuthenticated, setAuth }}>
         <Routes>
+          {/* Private routes  */}
           <Route element={<PrivateRoute />}>
             <Route element={<NewsLayout />}>
               <Route path="/news" element={<NewsPage />} />
               <Route path="/news/:id" element={<OneNews />} />
               <Route path="/news/year/:year" element={<NewsYear />} />
+            </Route>
+            <Route element={<AuthLayout />}>
               <Route path="/feedback" element={<SendFeedback />} />
             </Route>
           </Route>
+
+          {/* Public routes */}
           <Route element={<Layout />}>
             <Route path="/" element={<MainPage />} />
           </Route>
-          <Route element={<PublicRoute />}>
+          <Route element={<AboutUsLayout />}>
+            <Route path="about_us" element={<AboutUs />} />
+          </Route>
+
+          {/* unAuthRoute */}
+          <Route element={<UnAuthRoute />}>
             <Route element={<AuthLayout />}>
               <Route path="/register" element={<Register />} />
               <Route path="/login" element={<Login />} />

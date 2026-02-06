@@ -164,3 +164,8 @@ body {
 .d-grid {
   display: grid;
 }
+
+.main__wrapper-about_us {
+  width: 50%;
+  padding: 30px;
+}

@@ -19,7 +19,7 @@ export default function SendFeedback() {
     }
   };
   return (
-    <div className="form-component">
+    <>
       <CenterModal
         callback={() => setShow(false)}
         show={show}
@@ -53,6 +53,6 @@ export default function SendFeedback() {
           Отправить заявку
         </Button>
       </Form>
-    </div>
+    </>
   );
 }
