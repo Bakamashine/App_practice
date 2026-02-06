@@ -35,7 +35,7 @@ export default function AboutUs() {
         магистральные газопроводы Бованенково – Ухта – Торжок, Грязовец –
         Выборг, Сахалин – Хабаровск – Владивосток и других.
       </p>
-      <Accordion defaultActiveKey="0">
+      <Accordion>
         <Accordion.Item eventKey="0">
           <Accordion.Header>История</Accordion.Header>
           <Accordion.Body>

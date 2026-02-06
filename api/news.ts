@@ -1,5 +1,6 @@
 import $unAuthApi from "../config/unAuthApi";
 import { backendUrl, frontendUrl } from "../constants/url";
+import Paginate from "../helper/paginate";
 import Api from "./api";
 
 export interface NewsItem {
@@ -8,6 +9,11 @@ export interface NewsItem {
   text?: string|TrustedHTML;
   date: string;
 }
+
+export interface NewsPag extends Paginate {
+  results: NewsItem[]
+}
+
 class NewsApi extends Api {
   getData = async (): Promise<NewsItem[]> => {
     const response = await $unAuthApi.get("/news");
@@ -24,6 +30,7 @@ class NewsApi extends Api {
   parseData(data: NewsItem[]): NewsItem[] {
     data.forEach((item) => {
       const parser = new DOMParser();
+      if (typeof item.text === "string") {
       const doc = parser.parseFromString(item.text, "text/html");
       const images = doc.getElementsByTagName("img");
       for (let i = 0; i < images.length; i++) {
@@ -33,6 +40,7 @@ class NewsApi extends Api {
           `${backendUrl}/${old_src.replace(frontendUrl + "/", "").replace("file://", "")}`;
       }
       item.text = doc.documentElement.innerHTML;
+    } else throw Error(`item.text is null: ${item.text}`)
     });
     return data;
   }
@@ -42,6 +50,13 @@ class NewsApi extends Api {
     this.LogResponse("getNewsByYear", response);
     return response.data
   }
+
+  async getNewsPaginate(page: number): Promise<NewsPag> {
+    const response = await $unAuthApi.get(`/news/?page=${page}`);
+    this.LogResponse("getNewsPaginate", response)
+    return response.data
+  }
 }
+
 
 export default new NewsApi();

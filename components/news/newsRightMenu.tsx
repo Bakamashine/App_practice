@@ -12,7 +12,8 @@ export default function NewsRightMenu() {
   }, []);
   return (
     <>
-      <div className="menu__wrapper">
+      <div className="">
+        <div className="menu__wrapper">
         <h1 className="text-center">Годы</h1>
         {years.map((item) => (
           <div key={item} className="years">
@@ -21,6 +22,7 @@ export default function NewsRightMenu() {
             </Link>
           </div>
         ))}
+        </div>
       </div>
       <RightMenu />
     </>
