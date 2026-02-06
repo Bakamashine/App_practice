@@ -58,7 +58,7 @@ export default function App() {
   const [isAuthenticated, setAuth] = useState<boolean>(false);
 
   useEffect(() => {
-    let token = auth.GetAccessToken();
+    const token = auth.GetAccessToken();
     if (token) {
       setAuth(true);
     }
