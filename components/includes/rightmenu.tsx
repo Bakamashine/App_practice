@@ -11,11 +11,18 @@ export default function RightMenu() {
     <div className="rightmenu menu">
       <div className="menu__wrapper">
         <Clock />
-        <a className="link" target="_blank" href={backendUrl}>Наш сайт</a>
+        <a className="link" target="_blank" href={backendUrl}>
+          Наш сайт
+        </a>
         {/* <a className="link" target="_blank"  href="javascript:void(0)" onClick={(e) => {
           e.preventDefault();
         }}>Наш сайт</a> */}
-        <Link className="link d-block" to={"about_us"}>О нас</Link>
+        <Link className="link d-block" to={"about_us"}>
+          О нас
+        </Link>
+        <Link className="link d-block" to={"/document"}>
+          Документы
+        </Link>
       </div>
       {isAuthenticated && (
         <div className="menu__wrapper mt-3">
