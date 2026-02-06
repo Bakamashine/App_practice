@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import news, { NewsItem } from "../../api/news";
 import Loader from "../../components/loader";
+import NotFound from "../../components/notfound";
 
 export default function OneNews() {
   const [load, setLoad] = useState(true);
@@ -43,7 +44,7 @@ export default function OneNews() {
           <small>Дата: {new Date(onenews?.date).toLocaleDateString()}</small>
         </div>
       ) : (
-        <p>Новость не найдена</p>
+        <NotFound text="Новость" any={false} />
       )}
     </div>
   );

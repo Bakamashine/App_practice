@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import news, { NewsItem } from "../../api/news";
 import NewsCard from "../../components/news/newsCard";
+import NotFound from "../../components/notfound";
 
 export default function NewsYear() {
   const [newsByYear, setNews] = useState<NewsItem[]>([]);
@@ -34,7 +35,8 @@ export default function NewsYear() {
           ))}
         </>
       ) : (
-        <p>Новости за данный год отсуствует</p>
+        // <p>Новости за данный год отсуствует</p>
+        <NotFound fullText="Новостей за данный год не найдено" />
       )}
     </div>
   );

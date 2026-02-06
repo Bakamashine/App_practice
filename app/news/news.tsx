@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import Loader from "../../components/loader";
 import { Link } from "react-router-dom";
 import NewsCard from "../../components/news/newsCard";
+import NotFound from "../../components/notfound";
 
 export default function NewsPage() {
   const [news, setNews] = useState<NewsItem[]>([]);
@@ -34,26 +35,20 @@ export default function NewsPage() {
     <div>
       <h1>Новости</h1>
       <div>
-        {news.map((item) => (
-          <NewsCard
-            date={item.date}
-            id={item.id}
-            key={item.id}
-            title={item.title}
-          />
-          // <div
-          //   key={item.id}
-          //   style={{
-          //     border: "1px solid black",
-          //     marginBottom: "10px",
-          //     padding: "10px",
-          //   }}
-          // >
-          //   <Link to={`/news/${item.id}`}><h2>{item.title}</h2></Link>
-          //   {/* <div dangerouslySetInnerHTML={{ __html: item.text }}></div> */}
-          //   <small>Дата: {new Date(item.date).toLocaleDateString()}</small>
-          // </div>
-        ))}
+        {news && news.length > 0 ? (
+          <>
+            {news.map((item) => (
+              <NewsCard
+                date={item.date}
+                id={item.id}
+                key={item.id}
+                title={item.title}
+              />
+            ))}
+          </>
+        ) : (
+          <NotFound text="Новостей" />
+        )}
       </div>
     </div>
   );
