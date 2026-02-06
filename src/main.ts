@@ -18,11 +18,11 @@ const createWindow = () => {
       webPreferences: {
         preload: path.join(__dirname, "preload.js"),
       },
-
       /// TODO: Don't working
       icon: "favicon.png",
     });
 
+    mainWindow.setMenu(null)
     // and load the index.html of the app.
     if (MAIN_WINDOW_VITE_DEV_SERVER_URL) {
       mainWindow.loadURL(MAIN_WINDOW_VITE_DEV_SERVER_URL);
