@@ -19,6 +19,9 @@ import SendFeedback from "./feedback";
 import OneNews from "./news/one";
 import user from "../api/user";
 import auth from "../api/auth";
+import AuthLayout from "./auth/authLayout";
+import NewsLayout from "./news/newsLayout";
+import NewsYear from "./news/year";
 
 type AuthContextType = {
   isAuthenticated: boolean;
@@ -55,25 +58,30 @@ export default function App() {
   const [isAuthenticated, setAuth] = useState<boolean>(false);
 
   useEffect(() => {
-    let token = auth.GetAccessToken()
+    let token = auth.GetAccessToken();
     if (token) {
-      setAuth(true)
+      setAuth(true);
     }
-  }, [])
+  }, []);
   return (
     <HashRouter>
       <AuthContext.Provider value={{ isAuthenticated, setAuth }}>
         <Routes>
-          <Route element={<Layout />}>
-            <Route path="/" element={<MainPage />} />
-            <Route element={<PublicRoute />}>
-              <Route path="/register" element={<Register />} />
-              <Route path="/login" element={<Login />} />
-            </Route>
-            <Route element={<PrivateRoute />}>
+          <Route element={<PrivateRoute />}>
+            <Route element={<NewsLayout />}>
               <Route path="/news" element={<NewsPage />} />
               <Route path="/news/:id" element={<OneNews />} />
+              <Route path="/news/year/:year" element={<NewsYear />} />
               <Route path="/feedback" element={<SendFeedback />} />
+            </Route>
+          </Route>
+          <Route element={<Layout />}>
+            <Route path="/" element={<MainPage />} />
+          </Route>
+          <Route element={<PublicRoute />}>
+            <Route element={<AuthLayout />}>
+              <Route path="/register" element={<Register />} />
+              <Route path="/login" element={<Login />} />
             </Route>
           </Route>
         </Routes>
@@ -81,4 +89,3 @@ export default function App() {
     </HashRouter>
   );
 }
-

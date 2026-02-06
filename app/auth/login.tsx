@@ -33,7 +33,7 @@ const Login = () => {
   };
 
   return (
-    <div className="form-component">
+      <>
       {/* <CenterModal callback={() => setShow(false)} show={show} centerText={`Вы успешно авторизировались ${user.getName}`} /> */}
       <h1 className="text-center">Авторизация</h1>
       <Form onSubmit={submit}>
@@ -74,7 +74,7 @@ const Login = () => {
           }
         }}>Login (debug)</Button>
       )}
-    </div>
+  </>
   );
 };
 

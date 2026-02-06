@@ -44,6 +44,10 @@ body {
   padding: 30px;
 }
 
+.main__wrapper-auth {
+  width: 50%;
+}
+
 .default-background {
   padding: 10px;
 }
@@ -53,6 +57,13 @@ body {
   /* gap: 16px; */
   justify-content: space-between;
   padding: 10px;
+}
+
+.main-auth {
+  height: 1000px
+  /* position: absolute;
+  top: 50%;
+  left: 50% */
 }
 
 .leftmenu {
@@ -139,10 +150,17 @@ body {
 }
 
 .form-component {
-  margin: 20px;
+  /* margin: 20px; */
+  margin-top: auto;
+  margin-bottom: auto;
+  padding: 30px !important;
 }
 
 .link {
   cursor: pointer;
   user-select: none;
+}
+
+.d-grid {
+  display: grid;
 }

@@ -1,5 +1,6 @@
 import $unAuthApi from "../config/unAuthApi";
 import { backendUrl, frontendUrl } from "../constants/url";
+import Api from "./api";
 
 export interface NewsItem {
   id: number;
@@ -7,7 +8,7 @@ export interface NewsItem {
   text?: string|TrustedHTML;
   date: string;
 }
-class NewsApi {
+class NewsApi extends Api {
   getData = async (): Promise<NewsItem[]> => {
     const response = await $unAuthApi.get("/news");
     console.log("News: ", response.data);
@@ -34,6 +35,12 @@ class NewsApi {
       item.text = doc.documentElement.innerHTML;
     });
     return data;
+  }
+
+  async getByYear(year: number|string): Promise<NewsItem[]> {
+    const response = await $unAuthApi(`/news/year/${year}`);
+    this.LogResponse("getNewsByYear", response);
+    return response.data
   }
 }
 

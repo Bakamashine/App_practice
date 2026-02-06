@@ -24,7 +24,7 @@ export default function OneNews() {
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [params.id]);
   if (load) {
     return <Loader />;
   }

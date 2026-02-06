@@ -19,7 +19,7 @@ const Register = () => {
   };
 
   return (
-    <div className="form-component">
+    <>
       <h1 className="text-center">Регистрация</h1>
       <Form onSubmit={submit}>
         <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
@@ -58,7 +58,7 @@ const Register = () => {
           </Button>
         </Form.Group>
       </Form>
-    </div>
+  </>
   );
 };
 
