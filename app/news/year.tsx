@@ -1,16 +1,21 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import news, { NewsItem } from "../../api/news";
+import { useParams, useSearchParams } from "react-router-dom";
+import news, { NewsItem, NewsPag } from "../../api/news";
 import NewsCard from "../../components/news/newsCard";
 import NotFound from "../../components/notfound";
 
 export default function NewsYear() {
-  const [newsByYear, setNews] = useState<NewsItem[]>([]);
-  const params = useParams();
+  const [newsByYear, setNews] = useState<NewsPag>();
 
+  const params = useParams();
+  const year = params.year;
+  
   const fetchData = async () => {
-    const response = await news.getByYear(params.year);
-    setNews(news.parseData(response));
+    if (year) {
+      const response = await news.getByYear(year);
+      if (response.results.length > 0)
+        setNews(response);
+    }
   };
 
   useEffect(() => {
@@ -22,9 +27,9 @@ export default function NewsYear() {
     <div>
       <h1 className="text-center">Новости за {params?.year}</h1>
 
-      {newsByYear && newsByYear.length > 0 ? (
+      {newsByYear?.results && newsByYear.results.length > 0 ? (
         <>
-          {newsByYear.map((item) => (
+          {newsByYear.results.map((item) => (
             <NewsCard
               date={item.date}
               id={item.id}

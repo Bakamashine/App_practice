@@ -1,7 +1,7 @@
-const { app, BrowserWindow, ipcMain, net } = require("electron");
-const path = require("node:path");
-const started = require("electron-squirrel-startup");
-const os = require("os");
+import { app, BrowserWindow, ipcMain, net } from "electron";
+import path from "node:path";
+import started from "electron-squirrel-startup";
+import os from "os";
 
 console.log("isOnline:", net.isOnline());
 

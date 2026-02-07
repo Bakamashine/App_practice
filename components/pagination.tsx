@@ -1,41 +1,67 @@
 import { Pagination } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import Paginate from "../helper/paginate";
+import React from "react";
 
 interface PaginationComponentProps {
-  total_page: number;
-  data: any[];
+  data: Paginate;
   current_page: number;
 }
 
 export default function PaginationComponent({
-  total_page,
-  data,
   current_page,
+  data,
 }: PaginationComponentProps) {
+  const navigate = useNavigate();
+
+  function next() {
+    navigate(`?page=${current_page + 1}`);
+  }
+
+  function back() {
+    navigate(`?page=${current_page - 1}`);
+  }
+
+  function last() {
+    navigate(`?page=${data.total_pages}`);
+  }
+
+  function first() {
+    navigate(`?page=${1}`);
+  }
+
+  function moveTo(page: number) {
+    navigate(`?page=${page}`);
+  }
+
   return (
     <Pagination>
-      <Pagination.First />
-      <Pagination.Prev />
+      {current_page !== 1 && (
+        <>
+          <Pagination.First onClick={first} />
+          <Pagination.Prev onClick={back} />
+        </>
+      )}
 
-      {Array.from(Array(total_page).keys()).map((e) => (
-        <Pagination.Item key={e} active={e === current_page}>
-          {e + 1}
-        </Pagination.Item>
+      {Array.from(Array(data.total_pages + 1).keys()).map((e) => (
+        <React.Fragment key={e}>
+          {e !== 0 && (
+            <Pagination.Item
+              key={e}
+              active={e === current_page}
+              onClick={() => moveTo(e)}
+            >
+              {e}
+            </Pagination.Item>
+          )}
+        </React.Fragment>
       ))}
-
-      {/* <Pagination.Item>{1}</Pagination.Item>
-      <Pagination.Ellipsis />
-
-      <Pagination.Item>{10}</Pagination.Item>
-      <Pagination.Item>{11}</Pagination.Item>
-      <Pagination.Item active>{12}</Pagination.Item>
-      <Pagination.Item>{13}</Pagination.Item>
-      <Pagination.Item disabled>{14}</Pagination.Item>
-
-      <Pagination.Ellipsis />
-      <Pagination.Item>{20}</Pagination.Item> */}
-      <Pagination.Next />
-      <Pagination.Last />
+      {data.total_pages !== current_page && (
+        <>
+          <Pagination.Next onClick={next} />
+          <Pagination.Last onClick={last} />
+        </>
+      )}
     </Pagination>
   );
 }

@@ -1,7 +1,7 @@
 import NewsApi, { NewsItem, NewsPag } from "../../api/news";
 import { useEffect, useState } from "react";
 import Loader from "../../components/loader";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useSearchParams } from "react-router-dom";
 import NewsCard from "../../components/news/newsCard";
 import NotFound from "../../components/notfound";
 import PaginationComponent from "../../components/pagination";
@@ -11,19 +11,21 @@ export default function NewsPage() {
   const [load, setLoad] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
 
-  console.log("Current page: ", currentPage)
-  const params = useParams()
-  const page = params.page ? params.page : 1;
-
+  console.log("Current page: ", currentPage);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const page = searchParams.get("page");
   useEffect(() => {
-    if (params.page)
-      setCurrentPage(parseInt(params.page))
-  }, [params.page])
+    if (page) {
+      setCurrentPage(parseInt(page));
+      getData(parseInt(page));
+    }
+  }, [page]);
 
-  const getData = async () => {
+  const getData = async (cur_page?: number) => {
     try {
-      
-      const response = await NewsApi.getNewsPaginate(currentPage);
+      const response = await NewsApi.getNewsPaginate(
+        cur_page ? cur_page : currentPage,
+      );
 
       if (response) {
         setNews(response);
@@ -58,7 +60,10 @@ export default function NewsPage() {
               />
             ))}
             <div className="mt-3 flexCenter">
-            <PaginationComponent data={news.results} current_page={currentPage} total_page={news.total_pages} />
+              <PaginationComponent
+                data={news}
+                current_page={currentPage}
+              />
             </div>
           </>
         ) : (

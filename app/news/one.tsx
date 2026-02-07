@@ -13,8 +13,8 @@ export default function OneNews() {
     try {
       if (params.id) {
         const response = await news.getById(params.id);
-        const parsedData = news.parseData([response]);
-        setNews(parsedData[0]);
+        const parsedData = news.OneParseData(response);
+        setNews(parsedData);
       } else throw new Error(`Params.id is undefined ${params.id}`);
     } catch (e) {
       console.error(e);
