@@ -91,7 +91,7 @@ class Auth extends Api {
       // if (name && email)
       //   this.SaveIntoDB(response.data.access, response.data.refresh, email, name);
     } else {
-      let details_error  = response.data;
+      const details_error  = response.data;
       if (details_error?.detail) {
         return {detail: details_error.detail}
       } else {

@@ -2,7 +2,7 @@ import { Button, Card } from "react-bootstrap";
 import { CategoryItem } from "../../api/product";
 import { useNavigate } from "react-router-dom";
 
-interface ProductCardProps extends CategoryItem {}
+type ProductCardProps = CategoryItem
 export default function ProductCard({ img, name, id }: ProductCardProps) {
   const navigate = useNavigate();
   return (
