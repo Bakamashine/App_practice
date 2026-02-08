@@ -3,6 +3,10 @@ export default class Api {
     return status <= 400;
   }
 
+  protected CheckStatusLessFourHundredCode(status: number) {
+    return status < 400;
+  }
+
   protected LogResponse(description: string, response: any): void {
     console.log(`${description} response: `, response);
     console.log(`${description}: `, response?.data)

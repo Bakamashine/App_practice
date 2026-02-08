@@ -13,6 +13,11 @@ export interface LoginError {
   detail?: string;
 }
 
+export interface LoginInputError {
+  username?: string[];
+  password?: string[];
+}
+
 export interface RegisterError {
   email?: string[];
   password?: string[];
@@ -71,13 +76,13 @@ class Auth extends Api {
     localStorage.setItem(Auth.emailKey, response.data.email);
   }
 
-  async Login(username: string, password: string): Promise<void | LoginError> {
+  async Login(username: string, password: string): Promise<void | LoginError | LoginInputError> {
     const response = await $unAuthApi.post("/token", {
       username,
       password,
     });
     this.LogResponse("Login result", response);
-    if (this.CheckStatus(response.status)) {
+    if (this.CheckStatusLessFourHundredCode(response.status)) {
       this.SetToken({
         access: response.data.access,
         refresh: response.data.refresh,
@@ -86,7 +91,15 @@ class Auth extends Api {
       // if (name && email)
       //   this.SaveIntoDB(response.data.access, response.data.refresh, email, name);
     } else {
-      return response.data;
+      let details_error  = response.data;
+      if (details_error?.detail) {
+        return {detail: details_error.detail}
+      } else {
+        return {
+          username: response.data.username,
+          password: response.data.password
+        }
+      }
     }
   }
 
@@ -102,7 +115,7 @@ class Auth extends Api {
     });
     this.LogResponse("Register result", response);
 
-    if (this.CheckStatus(response.status)) {
+    if (this.CheckStatusLessFourHundredCode(response.status)) {
       this.Login(username, password);
     } else {
       return response.data;
