@@ -28,38 +28,16 @@ class NewsApi extends Api {
   }
 
   parseData(data: NewsPag): NewsPag {
-    data.results.forEach((item) => {
-      const parser = new DOMParser();
-      if (typeof item.text === "string") {
-        const doc = parser.parseFromString(item.text, "text/html");
-        const images = doc.getElementsByTagName("img");
-        for (let i = 0; i < images.length; i++) {
-          console.log("Image: ", images[i]);
-          const old_src = images[i].src;
-          images[i].src =
-            `${backendUrl}/${old_src.replace(frontendUrl + "/", "").replace("file://", "")}`;
-        }
-        item.text = doc.documentElement.innerHTML;
-      } else throw Error(`item.text is null: ${item.text}`);
-    });
-    return data;
+    return super.parseData(data, "text");
   }
 
-  OneParseData(data: NewsItem): NewsItem {
-    const parser = new DOMParser();
-    if (typeof data.text == "string") {
-      const doc = parser.parseFromString(data.text, "text/html");
-      const images = doc.getElementsByTagName("img");
-      for (let i = 0; i < images.length; i++) {
-        console.log("Image: ", images[i]);
-        const old_src = images[i].src;
-        images[i].src =
-          `${backendUrl}/${old_src.replace(frontendUrl + "/", "").replace("file://", "")}`;
-      }
-      data.text = doc.documentElement.innerHTML;
-    } else throw new Error(`data.text is null: ${data.text}`);
-    return data;
+  getParseData(data: NewsItem) {
+    return super.oneParseData(data, "text")
   }
+
+  // oneParseData(data: NewsItem): NewsItem {
+  //   return super.oneParseData(data, "text");
+  // }
 
   async getByYear(year: number | string): Promise<NewsPag> {
     const response = await $unAuthApi(`/news/year/${year}`);

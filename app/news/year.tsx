@@ -3,9 +3,11 @@ import { useParams, useSearchParams } from "react-router-dom";
 import news, { NewsItem, NewsPag } from "../../api/news";
 import NewsCard from "../../components/news/newsCard";
 import NotFound from "../../components/notfound";
+import PaginationComponent from "../../components/pagination";
 
 export default function NewsYear() {
   const [newsByYear, setNews] = useState<NewsPag>();
+  const [page, setPage] = useState(1)
 
   const params = useParams();
   const year = params.year;
@@ -38,6 +40,9 @@ export default function NewsYear() {
               text={item.text}
             />
           ))}
+          <div className="mt-3 flexCenter">
+          <PaginationComponent data={newsByYear} current_page={page} />
+          </div>
         </>
       ) : (
         // <p>Новости за данный год отсуствует</p>

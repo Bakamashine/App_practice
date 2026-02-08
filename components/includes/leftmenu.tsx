@@ -1,14 +1,15 @@
 import { useContext } from "react";
-import {  useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../app/root";
 import auth from "../../api/auth";
-import home from "../../assets/svg/home.svg"
-import news from "../../assets/svg/news.png"
-import feedback from "../../assets/svg/feedback.png"
-import register from "../../assets/svg/register.png"
-import login from "../../assets/svg/login.png"
-import logout from "../../assets/svg/logout.png"
-
+import home from "../../assets/svg/home.svg";
+import news from "../../assets/svg/news.png";
+import feedback from "../../assets/svg/feedback.png";
+import register from "../../assets/svg/register.png";
+import login from "../../assets/svg/login.png";
+import logout from "../../assets/svg/logout.png";
+import MenuButton from "../menuButton";
+import categories from "../../assets/svg/categories.png"
 
 export default function LeftMenu() {
   const navigate = useNavigate();
@@ -16,47 +17,24 @@ export default function LeftMenu() {
   return (
     <div className="leftmenu menu">
       <div className="menu__wrapper leftmenu__wrapper">
-        <div className="leftmenu__button" onClick={() => navigate("/")}>
-          <img src={home} className="leftmenu__asset" />
-          <div className="leftmenu__button__link">Главная</div>
-        </div>
-
-        <div className="leftmenu__button" onClick={() => navigate("/news")}>
-          <img src={news} className="leftmenu__asset" />
-          <div className="leftmenu__button__link">Новости</div>
-        </div>
-        <div className="leftmenu__button" onClick={() => navigate("/feedback")}>
-          <img src={feedback} className="leftmenu__asset" />
-          <div className="leftmenu__button__link">Оставить заявку</div>
-        </div>
+        <MenuButton route="/" text="Главная" image={home} />
+        <MenuButton route="/news" text="Новости" image={news} />
+        <MenuButton route="/feedback" text="Оставить заявку" image={feedback} />
+        <MenuButton route="/category" text="Категории" image={categories} />
         {!isAuthenticated ? (
           <>
-            <div
-              className="leftmenu__button"
-              onClick={() => navigate("/register")}
-            >
-              <img src={register} className="leftmenu__asset" />
-              <div className="leftmenu__button__link">Регистрация</div>
-            </div>
-            <div
-              className="leftmenu__button"
-              onClick={() => navigate("/login")}
-            >
-              <img src={login} className="leftmenu__asset" />
-              <div className="leftmenu__button__link">Авторизация</div>
-            </div>
+            <MenuButton route="/register" image={register} text="Регистрация" />
+            <MenuButton route="/login" image={login} text="Авторизация" />
           </>
         ) : (
-          <div
-            className="leftmenu__button"
-            onClick={() => {
+          <MenuButton
+            callback={() => {
               auth.Logout();
               setAuth(false);
             }}
-          >
-            <img src={logout} className="leftmenu__asset" />
-            <div className="leftmenu__button__link">Выход</div>
-          </div>
+            text="Выход"
+            image={logout}
+          />
         )}
       </div>
     </div>

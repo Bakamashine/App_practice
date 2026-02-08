@@ -25,6 +25,9 @@ import NewsYear from "./news/year";
 import AboutUs from "./about_us/about_us";
 import AboutUsLayout from "./about_us/aboutUsLayout";
 import DocumentView from "./document";
+import CategoryView from "./products/category";
+import CategoryDetail from "./products/category_detail";
+import ProductDetail from "./products/product_detail";
 
 type AuthContextType = {
   isAuthenticated: boolean;
@@ -85,7 +88,10 @@ export default function App() {
           {/* Public routes */}
           <Route element={<Layout />}>
             <Route path="/" element={<MainPage />} />
-            <Route path="/document"  element={<DocumentView />} />
+            <Route path="/document" element={<DocumentView />} />
+            <Route path="/category" element={<CategoryView />} />
+            <Route path="/category/:id" element={<CategoryDetail />} />
+            <Route path="/product/:id" element={<ProductDetail />} />
           </Route>
           <Route element={<AboutUsLayout />}>
             <Route path="about_us" element={<AboutUs />} />

@@ -13,7 +13,7 @@ export default function OneNews() {
     try {
       if (params.id) {
         const response = await news.getById(params.id);
-        const parsedData = news.OneParseData(response);
+        const parsedData = news.getParseData(response);
         setNews(parsedData);
       } else throw new Error(`Params.id is undefined ${params.id}`);
     } catch (e) {
@@ -40,7 +40,7 @@ export default function OneNews() {
           }}
         >
           <h2>{onenews?.title}</h2>
-          <div dangerouslySetInnerHTML={{ __html: onenews?.text }}></div>
+          <div dangerouslySetInnerHTML={{ __html: onenews?.text ?? "" }}></div>
           <small>Дата: {new Date(onenews?.date).toLocaleDateString()}</small>
         </div>
       ) : (
