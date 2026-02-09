@@ -25,7 +25,7 @@ export default class Api {
           console.log("Image: ", images[i]);
           const old_src = images[i].src;
           images[i].src =
-            `${backendUrl}/${old_src.replace(frontendUrl + "/", "").replace("file://", "")}`;
+            `${backendUrl}/${old_src.replace(frontendUrl + "/", "").replace("file://", "").replace("C:", "")}`;
         }
         item[key] = doc.documentElement.innerHTML;
       } else throw Error(`item[${key}] is null: ${item[key]}`);
@@ -42,7 +42,7 @@ export default class Api {
         console.log("Image: ", images[i]);
         const old_src = images[i].src;
         images[i].src =
-          `${backendUrl}/${old_src.replace(frontendUrl + "/", "").replace("file://", "")}`;
+          `${backendUrl}/${old_src.replace(frontendUrl + "/", "").replace("file://", "").replace("C:", "")}`;
       }
       (data as Record<string, any>)[key] = doc.documentElement.innerHTML;
     } else throw new Error(`data[${key}] is null: ${data[key]}`);
