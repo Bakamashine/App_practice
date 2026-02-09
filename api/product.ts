@@ -10,6 +10,10 @@ export interface CategoryItem {
   products?: ProductItem[];
 }
 
+export interface OnlyFileProduct {
+  file: string 
+}
+
 export interface CategoryPag extends Paginate {
   results: CategoryItem[];
 }
@@ -59,6 +63,12 @@ class Product extends Category {
 
   parseProduct(data: ProductItem) {
     return super.oneParseData(data, "description");
+  }
+
+  async getOnlyModel(id: number|string): Promise<OnlyFileProduct> {
+    const response = await $unAuthApi.get(`/product/file_only/${id}`);
+    this.LogResponse("getOnlyModel", response)
+    return response.data
   }
 }
 

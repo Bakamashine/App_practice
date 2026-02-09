@@ -28,6 +28,7 @@ import DocumentView from "./document";
 import CategoryView from "./products/category";
 import CategoryDetail from "./products/category_detail";
 import ProductDetail from "./products/product_detail";
+import ThreeD from "./products/threeD";
 
 type AuthContextType = {
   isAuthenticated: boolean;
@@ -96,6 +97,7 @@ export default function App() {
           <Route element={<AboutUsLayout />}>
             <Route path="about_us" element={<AboutUs />} />
           </Route>
+          <Route element={<ThreeD />} path="/product/threeD/:id" />
 
           {/* unAuthRoute */}
           <Route element={<UnAuthRoute />}>

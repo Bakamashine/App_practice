@@ -45,7 +45,7 @@ export default function ProductDetail() {
 
       {data?.file && (
         <div className="mt-3">
-          <Link className="btn btn-dark" to={"#"}>
+          <Link className="btn btn-dark" to={`/product/threeD/${data.id}`}>
             Есть возможность посмотреть в 3d...
           </Link>
         </div>
