@@ -7,3 +7,7 @@ export default interface Paginate {
     total_pages: number,
     results: any[]
 }
+
+export  interface PaginateWithGeneric<T> extends Paginate {
+    results: T[]
+}

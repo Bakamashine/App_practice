@@ -33,7 +33,7 @@ export default class Api {
     return data;
   }
 
-  protected oneParseData<T>(data: T, key: string) {
+  protected oneParseData<T extends Record<string, any>>(data: T, key: string): T {
     const parser = new DOMParser();
     if (typeof data[key] == "string") {
       const doc = parser.parseFromString(data[key], "text/html");
@@ -44,7 +44,7 @@ export default class Api {
         images[i].src =
           `${backendUrl}/${old_src.replace(frontendUrl + "/", "").replace("file://", "")}`;
       }
-      data[key] = doc.documentElement.innerHTML;
+      (data as Record<string, any>)[key] = doc.documentElement.innerHTML;
     } else throw new Error(`data[${key}] is null: ${data[key]}`);
     return data;
   }

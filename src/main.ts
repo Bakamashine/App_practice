@@ -1,14 +1,43 @@
-import { app, BrowserWindow, ipcMain, net } from "electron";
-import path from "node:path";
+import { app, BrowserWindow, ipcMain, net, shell } from "electron";
+import path, { dirname } from "node:path";
 import started from "electron-squirrel-startup";
-import os from "os";
+import { fileURLToPath } from "node:url";
+import os from "node:os";
+import http from "node:http";
+import fs from "node:fs";
+import { GenerateName } from "../helper/name";
+
+// recreate __filename and __dirname for ESM
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 console.log("isOnline:", net.isOnline());
 
-// Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (started) {
   app.quit();
 }
+
+
+ipcMain.on(
+  "temp",
+  (event, url: string, file_extension: string, filename: string) => {
+    const tempDir = os.tmpdir();
+    console.log("Temp dir: ", tempDir);
+    console.log("file url: ", url);
+    console.log("file extension: ", file_extension);
+    console.log("filename: ", filename);
+    const generateName = GenerateName(file_extension);
+    console.log("New name: ", generateName)
+    if (url && file_extension) {
+      const pathWithNewFile = `${tempDir}/${generateName}`
+      const stream = fs.createWriteStream(pathWithNewFile);
+      http.get(url, (response) => {
+        response.pipe(stream);
+      });
+      shell.openPath(pathWithNewFile)
+    }
+  },
+);
 
 const createWindow = () => {
   const isOnline = net.isOnline();
@@ -19,8 +48,8 @@ const createWindow = () => {
       height: 600,
       webPreferences: {
         preload: path.join(__dirname, "preload.js"),
-        nodeIntegration: true,
-        contextIsolation: false,
+        nodeIntegration: false,
+        contextIsolation: true,
       },
       icon: path.join(__dirname, "assets", "favicon.png"),
     });
@@ -29,7 +58,12 @@ const createWindow = () => {
       mainWindow.loadURL(MAIN_WINDOW_VITE_DEV_SERVER_URL);
     } else {
       mainWindow.loadFile(
-        path.join(__dirname, "../renderer", MAIN_WINDOW_VITE_NAME, "index.html")
+        path.join(
+          __dirname,
+          "../renderer",
+          MAIN_WINDOW_VITE_NAME,
+          "index.html",
+        ),
       );
     }
 
@@ -41,20 +75,3 @@ const createWindow = () => {
 };
 
 app.on("ready", createWindow);
-
-app.on("window-all-closed", () => {
-  if (process.platform !== "darwin") {
-    app.quit();
-  }
-});
-
-ipcMain.on("temp", () => {
-  const temp = os.tmpdir();
-  console.log("Temp:", temp);
-});
-
-app.on("activate", () => {
-  if (BrowserWindow.getAllWindows().length === 0) {
-    createWindow();
-  }
-});
