@@ -15,7 +15,7 @@ export default function NewsYear() {
   const fetchData = async () => {
     if (year) {
       const response = await news.getByYear(year);
-      if (response.results.length > 0)
+      if (response)
         setNews(response);
     }
   };
