@@ -1,20 +1,31 @@
-import { SubmitEvent, useState } from "react";
+import { SubmitEvent, useContext, useState } from "react";
 import { Button } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import auth, { RegisterError } from "../../api/auth";
 import ShowErrors from "../../components/showErrors";
+import { AuthContext } from "../root";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const Register = () => {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [errors, setErrors] = useState<RegisterError>();
+  const {setAuth} = useContext(AuthContext)
+
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/"
 
   const submit = async (e: SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
     const response = await auth.Register(name, email, password);
     if (response) {
       setErrors(response);
+    } else {
+      setAuth(true);
+
+      navigate(from, {replace: true})
     }
   };
 
