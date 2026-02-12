@@ -33,8 +33,16 @@ ipcMain.on(
       const stream = fs.createWriteStream(pathWithNewFile);
       http.get(url, (response) => {
         response.pipe(stream);
+
+        stream.on("finish", () => {
+          stream.close();
+          if (fs.existsSync(pathWithNewFile)) {
+            shell.openPath(pathWithNewFile)
+          }
+        })
       });
-      shell.openPath(pathWithNewFile)
+      // if (fs.existsSync(pathWithNewFile))
+      //   shell.openPath(pathWithNewFile)
     }
   },
 );

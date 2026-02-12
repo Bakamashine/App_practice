@@ -6,34 +6,49 @@ import { Link } from "react-router-dom";
 import { PaginateWithGeneric } from "../helper/paginate";
 import { Pagination } from "react-bootstrap";
 import PaginationComponent from "../components/pagination";
+import Loader from "../components/loader";
 export default function DocumentView() {
   const [doc, setDoc] = useState<PaginateWithGeneric<DocumentItem>>();
-  const [page, setPage] = useState(1)
+  const [page, setPage] = useState(1);
+  const [load, setLoad] = useState(true);
   const fetchData = async () => {
-    const response = await documentClass.getDocuments();
-    setDoc(response);
+    try {
+      const response = await documentClass.getDocuments();
+      setDoc(response);
+    } catch (e) {
+      console.error(e);
+    } finally {
+      setLoad(false);
+    }
   };
 
   useEffect(() => {
     fetchData();
   }, []);
+
+  if (load) {
+    return <Loader />;
+  }
   return (
     <div className="documents">
-        <h1 className="text-center">Документы</h1>
+      <h1 className="text-center">Документы</h1>
       {doc && doc.results.length > 0 ? (
         <>
           {doc.results.map((item) => (
             <div className="document" key={item.id}>
               {/* <OpenBrowser title={item.title} url={item.file} /> */}
-            <a className="link" onClick={() => documentClass.openDocument(item.file)}>
-              {item.title}
-            </a>
+              <a
+                className="link"
+                onClick={() => documentClass.openDocument(item.file)}
+              >
+                {item.title}
+              </a>
               {/* <a onClick={}>Open</a> */}
               <p>Описание: {item.text}</p>
             </div>
           ))}
           <div className="flexCenter mt-3">
-            <PaginationComponent current_page={page} data={doc}  />
+            <PaginationComponent current_page={page} data={doc} />
           </div>
         </>
       ) : (

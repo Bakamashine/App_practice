@@ -17,7 +17,8 @@ class DocumentClass extends Api {
 
   protected extname(url: string): string {
     const array = url.split(".");
-    return array[1];
+    // return array[1];
+    return array[array.length - 1];
   }
 
   protected basename(url: string): string {
